@@ -1,13 +1,19 @@
 import { GoogleGenAI } from "@google/genai";
 import { TarotCard } from "../constants/tarotDeck";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || "" });
-
 export async function getTarotInterpretation(
   cards: { card: TarotCard; isReversed: boolean; position?: string }[],
   question: string,
   spreadType: string
 ) {
+  const apiKey = process.env.GEMINI_API_KEY;
+  
+  if (!apiKey) {
+    return "Xin lỗi, hệ thống chưa được cấu hình khóa API. Vui lòng liên hệ quản trị viên.";
+  }
+
+  const ai = new GoogleGenAI({ apiKey });
+  
   const cardsInfo = cards.map(c => 
     `- ${c.position ? `${c.position}: ` : ""}${c.card.name} (${c.card.english}) - ${c.isReversed ? "Ngược" : "Xuôi"}. 
       Bộ: ${c.card.suit || "Ẩn Chính"}, Nguyên tố: ${c.card.element || "Không có"}. 
@@ -35,12 +41,12 @@ export async function getTarotInterpretation(
 
   try {
     const response = await ai.models.generateContent({
-      model: "gemini-2.0-flash",
+      model: "gemini-flash-latest",
       contents: prompt,
     });
     return response.text;
   } catch (error) {
     console.error("Gemini API Error:", error);
-    return "Xin lỗi, vũ trụ đang bận rộn một chút. Hãy thử lại sau nhé!";
+    return "Xin lỗi, vũ trụ đang bận rộn một chút (Lỗi kết nối AI). Bạn vui lòng thử lại sau vài giây nhé!";
   }
 }
