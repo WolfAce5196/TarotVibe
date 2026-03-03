@@ -860,7 +860,7 @@ export default function App() {
       </main>
 
       <footer className="py-8 px-6 border-t border-white/5 text-center text-white/30 text-xs">
-        <p>© 2026 TarotVibe • Kết nối tâm hồn và vũ trụ</p>
+        <p>© 2026 TarotVibe • Kết nối tâm hồn và vũ trụ • [V2.1]</p>
       </footer>
     </div>
   );

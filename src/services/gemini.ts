@@ -9,7 +9,7 @@ export async function getTarotInterpretation(
   const apiKey = process.env.GEMINI_API_KEY;
   
   if (!apiKey || apiKey === "undefined" || apiKey === "" || apiKey === "MY_GEMINI_API_KEY") {
-    return "Xin lỗi, vũ trụ chưa được kết nối (Thiếu API Key). Vui lòng đảm bảo bạn đã cấu hình GEMINI_API_KEY trong phần Secrets của AI Studio.";
+    return "LỖI HỆ THỐNG [V2]: Vũ trụ chưa nhận được tín hiệu từ AI Studio. Vui lòng kiểm tra lại GEMINI_API_KEY trong phần Secrets và TẢI LẠI TRANG (F5).";
   }
 
   const ai = new GoogleGenAI({ apiKey });
